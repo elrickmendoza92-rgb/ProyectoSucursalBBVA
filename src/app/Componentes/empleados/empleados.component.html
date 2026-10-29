@@ -1,0 +1,79 @@
+
+
+<div class="container mt-4">
+  <div class="d-flex align-items-center mb-4">
+    <img src="assets/LOGOBBVA.png" alt="Logo BBVA" style="height: 55px; width: auto; margin-right: 15px;">
+    <h2 class="mb-0">Sucursal BBVA - Gestión de Empleados</h2>
+  </div>
+
+  <!-- FORMULARIO PARA GUARDAR / EDITAR -->
+  <div class="card p-4 mb-4">
+    <h3>{{ editando ? 'Actualizar Empleado' : 'Registrar Empleado' }}</h3>
+    <form (ngSubmit)="guardarFormulario()">
+      <div class="mb-3">
+        <label class="form-label">NSS:</label>
+        <input type="text" class="form-control" [(ngModel)]="nuevoEmpleado.nss" name="nss" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Nombre:</label>
+        <input type="text" class="form-control" [(ngModel)]="nuevoEmpleado.nombre" name="nombre" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Apellido Paterno:</label>
+        <input type="text" class="form-control" [(ngModel)]="nuevoEmpleado.app" name="app" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Apellido Materno:</label>
+        <input type="text" class="form-control" [(ngModel)]="nuevoEmpleado.apm" name="apm" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Sueldo:</label>
+        <input type="number" class="form-control" [(ngModel)]="nuevoEmpleado.sueldo" name="sueldo" required>
+      </div>
+
+      <button type="submit" [class]="editando ? 'btn btn-warning' : 'btn btn-success'">
+        {{ editando ? 'Actualizar Cambios' : 'Guardar Formulario' }}
+      </button>
+      
+      <button type="button" class="btn btn-secondary ms-2" *ngIf="editando" (click)="resetFormulario()">
+        Cancelar
+      </button>
+    </form>
+  </div>
+
+  <!-- TABLA PARA MOSTRAR -->
+  <div class="card p-4">
+    <h3>Lista de Empleados</h3>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>NSS</th>
+          <th>Nombre</th>
+          <th>Apellido Paterno</th>
+          <th>Apellido Materno</th>
+          <th>Sueldo</th>
+          <th>Acciones</th> <!-- NUEVA COLUMNA -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let emp of listaEmpleados">
+          <td>{{ emp.id }}</td>
+          <td>{{ emp.nss }}</td>
+          <td>{{ emp.nombre }}</td>
+          <td>{{ emp.app }}</td>
+          <td>{{ emp.apm }}</td>
+          <td>{{ emp.sueldo }}</td>
+          <td>
+            <button class="btn btn-primary btn-sm me-2" (click)="prepararActualizacion(emp)">Editar</button>
+            <button class="btn btn-danger btn-sm" (click)="eliminar(emp.id)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
